@@ -1,0 +1,39 @@
+.holder{
+    position: relative;
+    display: inline-block;
+}
+
+.regions p{
+    position: absolute;
+    font-family: 'Pirata One', cursive;
+    font-size: 26px;
+    color: #000;
+    cursor: pointer;
+    text-shadow: 0 0 3px rgb(255, 255, 255);
+    
+}
+
+.africa{
+    top:44%;
+    left: 54%;
+}
+
+.america{
+    top:40%;
+    left: 24%;
+}
+
+.asia{
+    top:20%;
+    left: 71%;
+}
+
+.europe{
+    top:18%;
+    left: 50%;
+}
+
+.oceania{
+    top:50%;
+    left: 85%;
+}

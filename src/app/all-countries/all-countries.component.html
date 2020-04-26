@@ -1,0 +1,44 @@
+<div class="container-fluid pcolor">
+  <div class="row">
+      <div class="col col-md-12">
+          <div class="row">
+              <div class="col-md-9">
+                      <span style="cursor : pointer" (click)="goBack()">
+                              <span class="back pirate">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</span>
+                            </span>
+              </div>
+              <div class="col-md-3 pirate" style="padding:20px"> 
+                  <label for="search"></label>
+                  <input #in type="text" placeholder="Search for a country" [(ngModel)]="search">
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="container-fluid pcolor">
+<div class="row">
+<div class="col-md-3 chover" style="padding-bottom:20px" *ngFor="let country of fcountriesdata|filter:search | paginate: { itemsPerPage: 12, currentPage: p}">
+      <div class="card">
+        <img class="card-img-top" style="border-bottom: 1px solid lightgrey; height:1.5cm; width: 2cm;" [src]="country.flag" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title" style="font-size:26px">{{country.Country}}</h5>
+          <ul class="list-group list-group-flush" >
+            <li class="list-group-item" >Total Cases: {{country.TotalConfirmed}}</li>
+            <li class="list-group-item" >New Cases: <span [ngClass]="{'newc myclass':country.NewConfirmed>0}">+{{country.NewConfirmed}}</span></li>
+            <li class="list-group-item" >Total Deaths: {{country.TotalDeaths}}</li>
+            <li class="list-group-item" >New Deaths: <span [ngClass]="{'newd myclass':country.NewDeaths>0}">+{{country.NewDeaths}}</span></li>
+            <li class="list-group-item" >Total Recovered Cases: {{country.TotalRecovered}}</li>
+            <li class="list-group-item" >New Recovered Cases: <span [ngClass]="{'newr myclass':country.NewRecovered>0}">+{{country.NewRecovered}}</span></li>
+          </ul>
+        <div class="card-body">
+          <a [routerLink]="['/acountry', country.Country]" class="card-link">More Details</a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="text-center">
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+</div>

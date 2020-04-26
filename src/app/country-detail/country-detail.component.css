@@ -1,0 +1,86 @@
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+
+  body{
+    font-family: 'Roboto', sans-serif;font-size:16px;line-height:1em;
+  }
+  .bar {
+    fill: #d81c3f;
+  }
+  
+  .bar:hover {
+    fill: #fff;
+  }
+  
+  .axis {
+    font: 10px sans-serif;
+  }
+  
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+  .x.axis path {
+    display: none;
+  }
+
+  #git{
+    width: 240px;
+    height: 50px;
+    font-size: 1.6rem;
+    background: #211F1F;
+    border-radius: 50px;
+    transition: width .5s;
+    position: relative;
+    bottom: 5px;
+    left: 5px; 
+    cursor: pointer;
+  }
+
+  a{
+    text-decoration: none;
+  }
+  
+  .icon-button span{
+  position: relative;
+  left:25px;
+  color:#fff;
+  font-family: 'Roboto', sans-serif;font-size:16px;line-height:1em;
+  }
+  
+  #git:hover {
+    width: 240px;
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.45);
+  }
+  
+  #git:focus {
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.4);
+  }
+  
+  #git i{
+    position: relative;
+    left:14px;
+    color:#fff;
+    font-size: 1.5em
+  }
+
+  .country{
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    color: transparent;
+    text-align: center;
+    font-size: 4em;
+    -webkit-text-stroke: 2px #fff;
+    text-transform: uppercase;
+    transition: 0.5s;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 4px;
+    background-image: url('../../assets/images/virus.jpg');
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+  }
