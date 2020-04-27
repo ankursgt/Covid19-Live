@@ -168,6 +168,7 @@ export class CountryDetailComponent implements OnInit {
 
   public barChartLabels = this.xaxis;
   public barChartType = 'bar';
+  public barChartLegend: true;
 
   public confirmedData = [
     { data: this.yaxis, label: 'Confirmed Cases', backgroundColor: 'rgb(31,191,184)', hoverBackgroundColor: 'rgb(3, 17, 99)' },

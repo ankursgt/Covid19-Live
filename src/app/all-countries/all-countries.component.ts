@@ -19,6 +19,8 @@ export class AllCountriesComponent implements OnInit{
   public region;
   public countriesdata;
   public fcountriesdata=[];
+  public p: any;
+  public search: any;
 
   constructor(public restserviceObj:RestcountriesService, public dataserviceObj: DataService, private _route: ActivatedRoute, public loc: Location) { }
 
