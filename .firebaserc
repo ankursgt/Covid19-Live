@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "covid19-liveapp",
+    "covid-19livestats": "covid-19livestats"
+  }
+}

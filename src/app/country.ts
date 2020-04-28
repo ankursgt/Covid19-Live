@@ -5,7 +5,7 @@ export class  CountriesDetail{
 }
 
 
-class globaldata{
+export class globaldata{
      NewConfirmed : any;
      TotalConfirmed : any;
      NewDeaths : any;
@@ -15,7 +15,7 @@ class globaldata{
      flag: any;
     }
      
-class countriesdata{
+export class countriesdata{
      Country :  any;
      CountryCode : any;
      Slug :  any;

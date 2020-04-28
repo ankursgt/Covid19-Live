@@ -20,6 +20,7 @@ export class CountryDetailComponent implements OnInit {
   public countryInfo;
   public countrydata;
   public cdata_today: countrydata;
+  public countryobj;
   total_cases;
   total_deaths;
   total_recovered;
@@ -53,19 +54,22 @@ export class CountryDetailComponent implements OnInit {
         this.datasvc.getCountryInfo(this.country).subscribe(
           data => {
             this.countryInfo = data;
-            console.log(this.countryInfo);
+            //console.log(this.countryInfo);
             if (this.country == "United States of America" || this.country == "China" || this.country == "Australia") {
               const result = this.segregate(this.countryInfo);
+              var temparr = [];
               var special = [];
               const countryclass = function (Confirmed, Deaths, Recovered, Date) {
                 return { Confirmed: Confirmed, Deaths: Deaths, Recovered: Recovered, Date: Date }
               }
-              for (let r in result) {
-                //special.push(new countryclass(result[r].Confirmed, result[r].Deaths, result[r].Recovered, result[r].Date));
+              temparr.push(result);
+              this.countryobj = Object.values(temparr[0]);
+              for (var n = 0; n < this.countryobj.length; n++) {
+                special.push(this.countryobj[n]);
               }
               special.pop();
               this.daily_cases[0] = special[0].Confirmed;
-              this.daily_deaths[0] = special[0].Deaths;;
+              this.daily_deaths[0] = special[0].Deaths;
               this.daily_recovered[0] = special[0].Recovered;
               for (var j = 0; j < special.length; j++) {
                 this.xaxis.push(this.dtpipe.transform(special[j].Date, 'MMM-dd'));
@@ -95,8 +99,8 @@ export class CountryDetailComponent implements OnInit {
               if (this.cdata_slw.Recovered > 0) {
                 this.recovered_slw = (((this.cdata_today.Recovered - this.cdata_slw.Recovered) / this.cdata_slw.Recovered) * 100).toFixed(2);
               }
-              // console.log(this.daily_cases);
-              // console.log(this.daily_recovered);
+              console.log(this.daily_cases);
+              console.log(this.daily_recovered);
             }
             else {
               this.daily_cases[0] = this.countryInfo[0].Confirmed;

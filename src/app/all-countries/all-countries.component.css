@@ -1,8 +1,9 @@
-
+div, span{
+  font-family: 'Roboto', Arial, Helevtica, sans-serif !important;
+}
 .myclass{
     font-size: x-large;
 }
-
 .newd{
     color: red;
 }

@@ -1,10 +1,101 @@
-<div class="holder">
-  <img src="../assets/images/map.jpg" class="img-fluid">
-  <div class="regions">
-  <p class="africa" [routerLink]="['/countries/africa']">Africa</p>
-  <p class="america" [routerLink]="['/countries/americas']">Americas</p>
-  <p class="asia" [routerLink]="['/countries/asia']">Asia</p>
-  <p class="europe" [routerLink]="['/countries/europe']">Europe</p>
-  <p class="oceania" [routerLink]="['/countries/oceania']">Oceania</p>
+<div id="content-desktop">
+  <div class="holder">
+    <img src="../assets/images/map.jpg" class="img-fluid">
+    <div class="regions">
+      <p class="africa" [routerLink]="['/countries/africa']">Africa</p>
+      <p class="america" [routerLink]="['/countries/americas']">Americas</p>
+      <p class="asia" [routerLink]="['/countries/asia']">Asia</p>
+      <p class="europe" [routerLink]="['/countries/europe']">Europe</p>
+      <p class="oceania" [routerLink]="['/countries/oceania']">Oceania</p>
+    </div>
+  </div>
+</div>
+<div id="content-mobile">
+  <div class="pcoded-overlay-box"></div>
+  <div class="pcoded-container navbar-wrapper">
+    <h3 class="bg-transparent text-uppercase text-center mt-3 mb-0">Coronavirus Covid-19 Pandemic</h3>
+      <div class="pcoded-inner-content">
+        <div class="main-body">
+          <div class="pcoded-wrapper">
+            <div class="page-wrapper">
+              <div class="row text-center">
+                <div class="col-xl-4 col-md-6">
+                  <div class="card bg-c-yellow update-card">
+                    <div class="card-block">
+                      <div class="row align-items-end">
+                        <div class="col-12">
+                          <h4 class="text-white">{{global_cases}}</h4>
+                          <h6 class="text-white m-b-0">Total Cases</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <h3 class="text-white m-b-0">+{{global_cases_today}}
+                      </h3>
+                      <span class="text-nowrap">cases today</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                  <div class="card bg-c-pink update-card">
+                    <div class="card-block">
+                      <div class="row align-items-end">
+                        <div class="col-12">
+                          <h4 class="text-white">{{global_deaths}}</h4>
+                          <h6 class="text-white m-b-0">Deaths</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <h3 class="text-white m-b-0">+{{global_deaths_today}}
+                      </h3>
+                      <span>cases today</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                  <div class="card bg-c-green update-card">
+                    <div class="card-block">
+                      <div class="row align-items-end">
+                        <div class="col-12">
+                          <h4 class="text-white">{{global_recovered}}</h4>
+                          <h6 class="text-white m-b-0">Recovered</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <h3 class="text-white m-b-0">+{{global_recovered_today}}
+                      </h3>
+                      <span>cases today</span>
+                    </div>
+                  </div>
+                </div>
+                <h5 class="col-12 font-weight-light pb-2">Select a region for more details:</h5>
+              </div>
+              <div class="row" >
+                <div class="col-6">
+                  <div class="btn btn-region" [routerLink]="['/countries/africa']">Africa</div>
+                </div>
+                <div class="col-6">
+                  <div class="btn btn-region" [routerLink]="['/countries/americas']">Americas</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <button class="btn btn-region" [routerLink]="['/countries/asia']">Asia</button>
+                </div>
+                <div class="col-6">
+                  <div class="btn btn-region" [routerLink]="['/countries/europe']">Europe</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="btn btn-region" [routerLink]="['/countries/oceania']">Oceania</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
