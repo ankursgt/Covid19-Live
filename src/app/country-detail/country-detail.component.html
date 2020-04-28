@@ -5,15 +5,13 @@
   <div class="pcoded-container navbar-wrapper">
     <div class="pcoded-main-container" style="margin-top: 0;">
       <div class="pcoded-wrapper">
+        <div class="col col-md-12">
+          <span style="cursor : pointer" (click)="goBack()">
+            <span class="back pirate">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</span>
+          </span>
+        </div>
         <div class="pcoded-inner-content">
-          <div class="row">
-            <div class="col col-md-12">
-              <span style="cursor : pointer" (click)="goBack()">
-                <span class="back pirate">
-                  <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</span>
-              </span>
-            </div>
-          </div>
           <div class="main-body">
             <div class="page-wrapper">
               <div class="country">{{country}}</div>
