@@ -54,7 +54,7 @@ export class CountryDetailComponent implements OnInit {
         this.datasvc.getCountryInfo(this.country).subscribe(
           data => {
             this.countryInfo = data;
-            //console.log(this.countryInfo);
+            console.log(this.countryInfo);
             if (this.country == "United States of America" || this.country == "China" || this.country == "Australia") {
               const result = this.segregate(this.countryInfo);
               var temparr = [];
@@ -85,11 +85,11 @@ export class CountryDetailComponent implements OnInit {
                 this.daily_recovered.push(rcrd);
 
               }
-              this.cdata_today = special[special.length - 1];
+              this.cdata_today = special[special.length - 2];
               this.total_cases = this.cdata_today.Confirmed;
               this.total_deaths = this.cdata_today.Deaths;
               this.total_recovered = this.cdata_today.Recovered;
-              this.cdata_slw = special[special.length - 7];
+              this.cdata_slw = special[special.length - 8];
               if (this.cdata_slw.Confirmed > 0) {
                 this.cases_slw = (((this.cdata_today.Confirmed - this.cdata_slw.Confirmed) / this.cdata_slw.Confirmed) * 100).toFixed(2);
               }
@@ -99,8 +99,8 @@ export class CountryDetailComponent implements OnInit {
               if (this.cdata_slw.Recovered > 0) {
                 this.recovered_slw = (((this.cdata_today.Recovered - this.cdata_slw.Recovered) / this.cdata_slw.Recovered) * 100).toFixed(2);
               }
-              console.log(this.daily_cases);
-              console.log(this.daily_recovered);
+              // console.log(this.daily_cases);
+              // console.log(this.daily_recovered);
             }
             else {
               this.daily_cases[0] = this.countryInfo[0].Confirmed;
@@ -117,13 +117,13 @@ export class CountryDetailComponent implements OnInit {
                 this.daily_cases.push(conf);
                 this.daily_deaths.push(dth);
                 this.daily_recovered.push(rcrd);
-                //console.log(this.daily_cases);
               }
-              this.cdata_today = this.countryInfo[(Object.keys(this.countryInfo).length) - 1];
+              this.cdata_today = this.countryInfo[(Object.keys(this.countryInfo).length) - 2];
               this.total_cases = this.cdata_today.Confirmed;
               this.total_deaths = this.cdata_today.Deaths;
               this.total_recovered = this.cdata_today.Recovered;
-              this.cdata_slw = this.countryInfo[(Object.keys(this.countryInfo).length) - 7];
+              console.log(this.cdata_today);
+              this.cdata_slw = this.countryInfo[(Object.keys(this.countryInfo).length) - 8];
               if (this.cdata_slw.Confirmed > 0) {
                 this.cases_slw = (((this.cdata_today.Confirmed - this.cdata_slw.Confirmed) / this.cdata_slw.Confirmed) * 100).toFixed(2);
               }
