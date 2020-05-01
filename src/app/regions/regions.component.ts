@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
 import { map } from 'rxjs/operators';
-import { globaldata } from '../country';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-regions',
@@ -11,7 +11,7 @@ import { globaldata } from '../country';
 })
 export class RegionsComponent implements OnInit {
 
-  constructor(public dataserviceObj: DataService, private _route: ActivatedRoute,) { }
+  constructor(public dataserviceObj: DataService, private _route: ActivatedRoute, private spinner1: NgxSpinnerService) { }
     public global_cases;
     public global_deaths;
     public global_recovered;
@@ -20,6 +20,7 @@ export class RegionsComponent implements OnInit {
     public global_recovered_today;
 
   ngOnInit() {
+    this.spinner1.show();
     this.dataserviceObj.getCovidData().pipe(map(res => res.Global)).subscribe(data => {
       console.log(data);
       this.global_cases = data.TotalConfirmed.toLocaleString('en');
@@ -28,6 +29,7 @@ export class RegionsComponent implements OnInit {
       this.global_cases_today = data.NewConfirmed.toLocaleString('en');
       this.global_deaths_today = data.NewDeaths.toLocaleString('en');
       this.global_recovered_today = data.NewRecovered.toLocaleString('en');
+      this.spinner1.hide();
     });
     
   }

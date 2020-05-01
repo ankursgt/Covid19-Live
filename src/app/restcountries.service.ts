@@ -11,29 +11,13 @@ export class RestcountriesService {
   constructor(private _http:HttpClient) { }
 
   getCountries(region): any{
-    let response = this._http.get(this.url+"/region/"+region)
-    return response
-    
-
+    let response = this._http.get(this.url+"/region/"+region);  
+    return response;
   }
 
   getCountryInfo(country){
-    let response = this._http.get(this.url+"/name/"+country+"?fullText=true")
+    let response = this._http.get(this.url+"/name/"+country+"?fullText=true");
     return response
   }
 
-  getCountryInfoByCode(code){
-    let response = this._http.get(this.url+"/alpha/"+code)
-    return response
-  }
-
-  getCountriesByCurrency(code){
-    let response = this._http.get(this.url+"/currency/"+code)
-    return response;
-  }
-
-  getCountriesByLanguage(code){
-    let response = this._http.get(this.url+"/lang/"+code)
-    return response;
-  }
 }

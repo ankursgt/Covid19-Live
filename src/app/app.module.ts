@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -29,7 +30,7 @@ const appRoutes: Routes = [
     FilterPipe
   ],
   imports: [
-    BrowserModule, HttpClientModule, FormsModule, NgxPaginationModule, ChartsModule, RouterModule.forRoot(appRoutes)
+    BrowserModule, HttpClientModule, FormsModule, NgxPaginationModule, ChartsModule, NgxSpinnerModule, RouterModule.forRoot(appRoutes)
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

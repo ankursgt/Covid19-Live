@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
 import { countrydata } from '../countrydata';
@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-country-detail',
@@ -14,29 +15,30 @@ import { DatePipe } from '@angular/common';
 })
 export class CountryDetailComponent implements OnInit {
 
-  public country;
-  public xaxis = [];
-  public yaxis = [];
-  public countryInfo;
-  public countrydata;
-  public cdata_today: countrydata;
-  public countryobj;
+  country;
+  xaxis = [];
+  yaxis = [];
+  countryInfo;
+  countrydata;
+  cdata_today: countrydata;
+  countryobj;
   total_cases;
   total_deaths;
   total_recovered;
-  public cdata_slw;
-  public cases_slw;
-  public deaths_slw;
-  public recovered_slw;
-  public daily_cases = [];
-  public daily_deaths = [];
-  public daily_recovered = [];
-  public recoveryrate;
-  public last_updated;
+  cdata_slw;
+  cases_slw;
+  deaths_slw;
+  recovered_slw;
+  daily_cases = [];
+  daily_deaths = [];
+  daily_recovered = [];
+  recoveryrate;
+  last_updated;
 
 
-  constructor(private datasvc: DataService, private _route: ActivatedRoute, public loc: Location, private dtpipe: DatePipe) { }
+  constructor(private datasvc: DataService, private _route: ActivatedRoute, public loc: Location, private dtpipe: DatePipe, private spinner: NgxSpinnerService) { }
   ngOnInit() {
+    this.spinner.show();
     var conf;
     var dth;
     var rcrd;
@@ -54,8 +56,8 @@ export class CountryDetailComponent implements OnInit {
         this.datasvc.getCountryInfo(this.country).subscribe(
           data => {
             this.countryInfo = data;
-            console.log(this.countryInfo);
-            if (this.country == "United States of America" || this.country == "China" || this.country == "Australia") {
+            //console.log(this.countryInfo);
+            if (this.country == "United States of America" || this.country == "China" || this.country == "Australia" || this.country == "Canada" || this.country == "Denmark") {
               const result = this.segregate(this.countryInfo);
               var temparr = [];
               var special = [];
@@ -83,13 +85,12 @@ export class CountryDetailComponent implements OnInit {
                 this.daily_cases.push(conf);
                 this.daily_deaths.push(dth);
                 this.daily_recovered.push(rcrd);
-
               }
-              this.cdata_today = special[special.length - 2];
+              this.cdata_today = special[special.length - 1];
               this.total_cases = this.cdata_today.Confirmed;
               this.total_deaths = this.cdata_today.Deaths;
               this.total_recovered = this.cdata_today.Recovered;
-              this.cdata_slw = special[special.length - 8];
+              this.cdata_slw = special[special.length - 7];
               if (this.cdata_slw.Confirmed > 0) {
                 this.cases_slw = (((this.cdata_today.Confirmed - this.cdata_slw.Confirmed) / this.cdata_slw.Confirmed) * 100).toFixed(2);
               }
@@ -106,7 +107,7 @@ export class CountryDetailComponent implements OnInit {
               this.daily_cases[0] = this.countryInfo[0].Confirmed;
               this.daily_deaths[0] = this.countryInfo[0].Deaths;;
               this.daily_recovered[0] = this.countryInfo[0].Recovered;
-              for (var i = 0; i < Object.keys(this.countryInfo).length; i++) {
+              for (var i = 0; i < Object.keys(this.countryInfo).length - 1; i++) {
                 this.xaxis.push(this.dtpipe.transform(this.countryInfo[i].Date, 'MMM-dd'));
                 this.yaxis.push(this.countryInfo[i].Confirmed);
               }
@@ -118,11 +119,13 @@ export class CountryDetailComponent implements OnInit {
                 this.daily_deaths.push(dth);
                 this.daily_recovered.push(rcrd);
               }
+              this.daily_cases.pop();
+              this.daily_deaths.pop();
+              this.daily_recovered.pop();
               this.cdata_today = this.countryInfo[(Object.keys(this.countryInfo).length) - 2];
               this.total_cases = this.cdata_today.Confirmed;
               this.total_deaths = this.cdata_today.Deaths;
               this.total_recovered = this.cdata_today.Recovered;
-              console.log(this.cdata_today);
               this.cdata_slw = this.countryInfo[(Object.keys(this.countryInfo).length) - 8];
               if (this.cdata_slw.Confirmed > 0) {
                 this.cases_slw = (((this.cdata_today.Confirmed - this.cdata_slw.Confirmed) / this.cdata_slw.Confirmed) * 100).toFixed(2);
@@ -135,10 +138,11 @@ export class CountryDetailComponent implements OnInit {
               }
             }
             this.recoveryrate = ((this.total_recovered / this.total_cases) * 100).toFixed(2);
-            //console.log(this.xaxis);
-            //console.log(this.yaxis);
+            console.log(this.cdata_today);
+            console.log(this.xaxis);
           });
       })
+    this.spinner.hide();
   }
 
   segregate(datas) {

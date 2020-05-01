@@ -1,3 +1,4 @@
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 <div class="container-fluid pcolor">
   <div class="row">
       <div class="col col-md-12">
@@ -8,9 +9,12 @@
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</span>
                             </span>
               </div>
-              <div class="col-md-3 pirate" style="padding:20px"> 
+              <div class="col-md-3"> 
                   <label for="search"></label>
-                  <input #in type="text" placeholder="Search for a country" [(ngModel)]="search">
+                  <div class="input-container">
+                    <input type="text" [(ngModel)]="search"/>
+                    <label>Search for a country</label>		
+                  </div>
               </div>
           </div>
       </div>
