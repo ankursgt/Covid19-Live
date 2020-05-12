@@ -56,7 +56,7 @@ export class CountryDetailComponent implements OnInit {
         this.datasvc.getCountryInfo(this.country).subscribe(
           data => {
             this.countryInfo = data;
-            //console.log(this.countryInfo);
+            console.log(this.countryInfo);
             if (this.country == "United States of America" || this.country == "China" || this.country == "Australia" || this.country == "Canada" || this.country == "Denmark") {
               const result = this.segregate(this.countryInfo);
               var temparr = [];
@@ -69,7 +69,6 @@ export class CountryDetailComponent implements OnInit {
               for (var n = 0; n < this.countryobj.length; n++) {
                 special.push(this.countryobj[n]);
               }
-              special.pop();
               this.daily_cases[0] = special[0].Confirmed;
               this.daily_deaths[0] = special[0].Deaths;
               this.daily_recovered[0] = special[0].Recovered;
@@ -77,8 +76,7 @@ export class CountryDetailComponent implements OnInit {
                 this.xaxis.push(this.dtpipe.transform(special[j].Date, 'MMM-dd'));
                 this.yaxis.push(special[j].Confirmed);
               }
-              //console.log(special);
-              for (var k = 0; k < special.length - 1; k++) {
+              for (var k = 0; k < special.length-1; k++) {
                 conf = Math.abs(special[k + 1].Confirmed - special[k].Confirmed);
                 dth = Math.abs(special[k + 1].Deaths - special[k].Deaths);
                 rcrd = Math.abs(special[k + 1].Recovered - special[k].Recovered);
@@ -86,7 +84,7 @@ export class CountryDetailComponent implements OnInit {
                 this.daily_deaths.push(dth);
                 this.daily_recovered.push(rcrd);
               }
-              this.cdata_today = special[special.length - 1];
+              this.cdata_today = special[special.length-1];
               this.total_cases = this.cdata_today.Confirmed;
               this.total_deaths = this.cdata_today.Deaths;
               this.total_recovered = this.cdata_today.Recovered;
@@ -107,7 +105,7 @@ export class CountryDetailComponent implements OnInit {
               this.daily_cases[0] = this.countryInfo[0].Confirmed;
               this.daily_deaths[0] = this.countryInfo[0].Deaths;;
               this.daily_recovered[0] = this.countryInfo[0].Recovered;
-              for (var i = 0; i < Object.keys(this.countryInfo).length - 1; i++) {
+              for (var i = 0; i < this.countryInfo.length; i++) {
                 this.xaxis.push(this.dtpipe.transform(this.countryInfo[i].Date, 'MMM-dd'));
                 this.yaxis.push(this.countryInfo[i].Confirmed);
               }
@@ -119,14 +117,14 @@ export class CountryDetailComponent implements OnInit {
                 this.daily_deaths.push(dth);
                 this.daily_recovered.push(rcrd);
               }
-              this.daily_cases.pop();
-              this.daily_deaths.pop();
-              this.daily_recovered.pop();
-              this.cdata_today = this.countryInfo[(Object.keys(this.countryInfo).length) - 2];
+              // this.daily_cases.pop();
+              // this.daily_deaths.pop();
+              // this.daily_recovered.pop();
+              this.cdata_today = this.countryInfo[(Object.keys(this.countryInfo).length) - 1];
               this.total_cases = this.cdata_today.Confirmed;
               this.total_deaths = this.cdata_today.Deaths;
               this.total_recovered = this.cdata_today.Recovered;
-              this.cdata_slw = this.countryInfo[(Object.keys(this.countryInfo).length) - 8];
+              this.cdata_slw = this.countryInfo[(Object.keys(this.countryInfo).length) - 7];
               if (this.cdata_slw.Confirmed > 0) {
                 this.cases_slw = (((this.cdata_today.Confirmed - this.cdata_slw.Confirmed) / this.cdata_slw.Confirmed) * 100).toFixed(2);
               }
@@ -138,8 +136,6 @@ export class CountryDetailComponent implements OnInit {
               }
             }
             this.recoveryrate = ((this.total_recovered / this.total_cases) * 100).toFixed(2);
-            console.log(this.cdata_today);
-            console.log(this.xaxis);
           });
       })
     this.spinner.hide();
