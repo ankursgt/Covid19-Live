@@ -118,7 +118,7 @@
                               <!-- Chart wrapper -->
                               <canvas baseChart id="chart-total-cases" class="chart-canvas" [datasets]="confirmedData"
                                 [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                                [chartType]="barChartType"></canvas>
+                                [type]="'bar'"></canvas>
                             </div>
                           </div>
                         </div>
@@ -136,7 +136,7 @@
                             <div class="chart">
                               <canvas baseChart id="chart-daily-cases" class="chart-canvas" [datasets]="dailyCases"
                                 [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                                [chartType]="barChartType"></canvas>
+                                [type]="'bar'"></canvas>
                             </div>
                           </div>
                         </div>
@@ -154,7 +154,7 @@
                             <div class="chart">
                               <canvas baseChart id="chart-daily-deaths" class="chart-canvas" [datasets]="dailyDeaths"
                                 [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                                [chartType]="barChartType"></canvas>
+                                [type]="'bar'"></canvas>
                             </div>
                           </div>
                         </div>
@@ -172,7 +172,7 @@
                               <!-- Chart wrapper -->
                               <canvas baseChart id="chart-daily-recovered" class="chart-canvas"
                                 [datasets]="dailyRecovered" [labels]="barChartLabels" [options]="barChartOptions"
-                                [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+                                [legend]="barChartLegend" [type]="'bar'"></canvas>
                             </div>
                           </div>
                         </div>
