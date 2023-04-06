@@ -22,6 +22,8 @@ export class AllCountriesComponent implements OnInit{
   public fcountriesdata=[];
   public p: any;
   public search: any;
+  public detailsArr = [];
+  public filteredDetailsArr;
 
   constructor(public restserviceObj:RestcountriesService, public dataserviceObj: DataService, private _route: ActivatedRoute, public loc: Location, private spinner: NgxSpinnerService) { }
 
@@ -37,18 +39,47 @@ export class AllCountriesComponent implements OnInit{
         }
       )}
 
+  segregateData(data)   {
+      return data.reduce((c, data) => {
+          if (!c[data.country]) {
+            c[data.country] = {
+              confirmed: data.confirmed,
+              deaths: data.deaths,
+              
+            };
+          } else {
+            c[data.country].confirmed += data.confirmed;
+            c[data.country].deaths += data.deaths;
+          }
+          return c;
+        }, {});
+    }
+   
+
   getCountriesByRegion(region){
     this.restserviceObj.getCountries(region)
       .subscribe(
         data => {
           this.countries=data;
-          this.dataserviceObj.getCovidData().pipe(map(res=>res.Countries)).subscribe(data=>{
-            this.countriesdata=data;
-            for(var i=0;i<Object.keys(this.countriesdata).length;i++){
+          this.dataserviceObj.getCovidData().pipe(map(res=>res.data)).subscribe(data=>{
+            this.countriesdata=data.covid19Stats;
+            this.filteredDetailsArr = this.countriesdata.filter(x => x.province == null).map(country => country.country);
+            console.log(this.filteredDetailsArr);
+            const result = this.segregateData(this.countriesdata);
+            
+            for(const i in result){
+              let cdata = {country: '', confirmed: 0, deaths: 0, flag: ''}
+              cdata.country = i;
+              cdata.confirmed = result[i].confirmed;
+              cdata.deaths = result[i].deaths;
+              this.detailsArr.push(cdata);
+            }
+            console.log(this.detailsArr, this.countriesdata);
+            for(var i=0;i<Object.keys(this.detailsArr).length;i++){
               for(var j=0;j<Object.keys(this.countries).length;j++){
-                  if(this.countriesdata[i].Country==this.countries[j].name){
-                    this.countriesdata[i].flag=this.countries[j].flag;
-                this.fcountriesdata.push(this.countriesdata[i]);
+                  if(this.detailsArr[i].country==this.countries[j].name.common){
+                    this.detailsArr[i].flag=this.countries[j].flags.svg;
+                this.fcountriesdata.push(this.detailsArr[i]);
                 }
               }
             }
@@ -57,7 +88,10 @@ export class AllCountriesComponent implements OnInit{
           });
         }
       )
-      
+  }
+
+  areDetailsAvailable(country){
+    return this.filteredDetailsArr.includes(country);
   }
 
   public goBack(): any{

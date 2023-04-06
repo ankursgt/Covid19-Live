@@ -24,19 +24,16 @@
 <div class="row">
 <div class="col-md-3 chover" style="padding-bottom:20px" *ngFor="let country of fcountriesdata|filter:search | paginate: { itemsPerPage: 12, currentPage: p}">
       <div class="card">
-        <img class="card-img-top" style="border-bottom: 1px solid lightgrey; height:1.5cm; width: 2cm;" [src]="country.flag" alt="Card image cap">
+        <img class="card-img-top" [src]="country.flag" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title" style="font-size:26px">{{country.Country}}</h5>
+          <h5 class="card-title" style="font-size:26px">{{country.country}}</h5>
           <ul class="list-group list-group-flush" >
-            <li class="list-group-item" >Total Cases: {{country.TotalConfirmed}}</li>
-            <li class="list-group-item" >New Cases: <span [ngClass]="{'newc myclass':country.NewConfirmed>0}">+{{country.NewConfirmed}}</span></li>
-            <li class="list-group-item" >Total Deaths: {{country.TotalDeaths}}</li>
-            <li class="list-group-item" >New Deaths: <span [ngClass]="{'newd myclass':country.NewDeaths>0}">+{{country.NewDeaths}}</span></li>
-            <li class="list-group-item" >Total Recovered Cases: {{country.TotalRecovered}}</li>
-            <li class="list-group-item" >New Recovered Cases: <span [ngClass]="{'newr myclass':country.NewRecovered>0}">+{{country.NewRecovered}}</span></li>
+            <li class="list-group-item" >Total Cases: {{country.confirmed | number}}</li>
+            <li class="list-group-item" >Total Deaths: <span [ngClass]="{'myclass newd':country.deaths>0}">{{country.deaths | number}}</span></li>
           </ul>
         <div class="card-body">
-          <a [routerLink]="['/acountry', country.Country]" class="card-link alink" style="font-size: medium;">More Details</a>
+          <a [routerLink]="['/acountry', country.country]" class="card-link alink" style="font-size: medium;"
+          [class.disabled]="areDetailsAvailable(country.country) ? true: null">More Details</a>
         </div>
     </div>
 </div>

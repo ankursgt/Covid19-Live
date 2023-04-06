@@ -21,14 +21,10 @@ export class RegionsComponent implements OnInit {
 
   ngOnInit() {
     this.spinner1.show();
-    this.dataserviceObj.getCovidData().pipe(map(res => res.Global)).subscribe(data => {
+    this.dataserviceObj.getGlobalData().pipe(map(res => res.data)).subscribe(data => {
       console.log(data);
-      this.global_cases = data.TotalConfirmed.toLocaleString('en');
-      this.global_deaths = data.TotalDeaths.toLocaleString('en');    
-      this.global_recovered = data.TotalRecovered.toLocaleString('en');
-      this.global_cases_today = data.NewConfirmed.toLocaleString('en');
-      this.global_deaths_today = data.NewDeaths.toLocaleString('en');
-      this.global_recovered_today = data.NewRecovered.toLocaleString('en');
+      this.global_cases = data.confirmed.toLocaleString('en');
+      this.global_deaths = data.deaths.toLocaleString('en');
       this.spinner1.hide();
     });
     

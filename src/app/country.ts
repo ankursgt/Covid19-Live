@@ -1,6 +1,22 @@
-export class  CountriesDetail{
-    Global: globaldata;
-    Countries: countriesdata
+export class GlobalDetail{
+    data: {
+        recovered: any,
+        deaths: number;
+        confirmed: number;
+        lastChecked: Date;
+        lastReported: Date;
+        location: string;
+    }
+    
+    
+}
+
+export class CountriesDetail{
+    data: {
+        lastChecked: Date;
+        covid19Stats: countriesdata;
+    }
+    
     
 }
 
@@ -16,16 +32,14 @@ export class globaldata{
     }
      
 export class countriesdata{
-     Country :  any;
-     CountryCode : any;
-     Slug :  any;
-     NewConfirmed : any;
-     TotalConfirmed : any;
-     NewDeaths : any;
-     TotalDeaths : any;
-     NewRecovered : any;
-     TotalRecovered : any;
-     Date :  any;
+    city: string;
+    province: string;
+    country: string;
+    lastUpdate: Date;
+    keyId: string;
+    confirmed: number;
+    deaths: number;
+    recovered: any;
     }
 // class countryDetail{
 //         ourid?: any;

@@ -45,17 +45,22 @@ export class CountryDetailComponent implements OnInit {
     this._route.params.subscribe(
       data => {
         this.country = data.country;
-        this.datasvc.getCovidData().pipe(map(res => res.Countries)).subscribe(data => {
-          this.countrydata = data;
-          for (var i = 0; i < Object.keys(this.countrydata).length; i++) {
-            if (this.countrydata[i].Country == this.country) {
-              this.last_updated = new Date(this.countrydata[i].Date);
-            }
-          }
-        });
+        // this.datasvc.getCovidData().pipe(map(res => res.data.covid19Stats)).subscribe(data => {
+        //   this.countrydata = data;
+        //   for (var i = 0; i < Object.keys(this.countrydata).length; i++) {
+        //     if (this.countrydata[i].Country == this.country) {
+        //       this.last_updated = new Date(this.countrydata[i].lastChecked);
+        //       console.log(this.last_updated);
+        //     }
+        //   }
+        // });
         this.datasvc.getCountryInfo(this.country).subscribe(
           data => {
             this.countryInfo = data;
+            this.last_updated = new Date(this.countryInfo.data.lastChecked);
+            this.total_cases = this.countryInfo.data.covid19Stats[0].confirmed;
+            this.total_deaths = this.countryInfo.data.covid19Stats[0].deaths;
+
             console.log(this.countryInfo);
             if (this.country == "United States of America" || this.country == "China" || this.country == "Australia" || this.country == "Canada" || this.country == "Denmark") {
               const result = this.segregate(this.countryInfo);

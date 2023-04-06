@@ -25,13 +25,13 @@
                     <div class="card-block">
                       <div class="row align-items-end">
                         <div class="col-12">
-                          <h4 class="text-white">{{global_cases}}</h4>
+                          <h4 class="text-white">{{global_cases | number}}</h4>
                           <h6 class="text-white m-b-0">Total Cases</h6>
                         </div>
                       </div>
                     </div>
                     <div class="card-footer">
-                      <h3 class="text-white m-b-0">+{{global_cases_today}}
+                      <h3 class="text-white m-b-0">+{{global_cases_today | number}}
                       </h3>
                       <span class="text-nowrap">cases today</span>
                     </div>
@@ -42,13 +42,13 @@
                     <div class="card-block">
                       <div class="row align-items-end">
                         <div class="col-12">
-                          <h4 class="text-white">{{global_deaths}}</h4>
+                          <h4 class="text-white">{{global_deaths | number}}</h4>
                           <h6 class="text-white m-b-0">Deaths</h6>
                         </div>
                       </div>
                     </div>
                     <div class="card-footer">
-                      <h3 class="text-white m-b-0">+{{global_deaths_today}}
+                      <h3 class="text-white m-b-0">+{{global_deaths_today | number}}
                       </h3>
                       <span>cases today</span>
                     </div>
@@ -59,13 +59,13 @@
                     <div class="card-block">
                       <div class="row align-items-end">
                         <div class="col-12">
-                          <h4 class="text-white">{{global_recovered}}</h4>
+                          <h4 class="text-white">{{global_recovered | number}}</h4>
                           <h6 class="text-white m-b-0">Recovered</h6>
                         </div>
                       </div>
                     </div>
                     <div class="card-footer">
-                      <h3 class="text-white m-b-0">+{{global_recovered_today}}
+                      <h3 class="text-white m-b-0">+{{global_recovered_today | number}}
                       </h3>
                       <span>cases today</span>
                     </div>

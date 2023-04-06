@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CountriesDetail } from './country';
+import { CountriesDetail, GlobalDetail } from './country';
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 
@@ -8,23 +8,29 @@ import { DatePipe } from '@angular/common';
   providedIn: 'root'
 })
 export class DataService {
+  
 
-  globalurl= "https://api.covid19api.com/summary";
-  countryurl= "https://api.covid19api.com/dayone/country/";
-  start_date=new Date("2020-02-01");
-  end_date=new Date();
+  globalurl= "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/";
+  countryurl= "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=";
 
+  private headers= new HttpHeaders()
+  .set('x-rapidapi-key', '65ba733593mshce38f6da90c0b83p137dcejsn7e793c04a492')
+  .set('x-rapidapi-host', 'covid-19-coronavirus-statistics.p.rapidapi.com');
 
+  constructor(private http: HttpClient, public datepipe: DatePipe) {
+    
+   }
 
-  constructor(private http: HttpClient, public datepipe: DatePipe) { }
+   getGlobalData() {
+    return this.http.get<GlobalDetail>(this.globalurl + 'total', { 'headers': this.headers });
+   }
 
   getCovidData(){
-    return this.http.get<CountriesDetail>(this.globalurl);
+    return this.http.get<CountriesDetail>(this.globalurl + 'stats', { 'headers': this.headers });
   }
 
   getCountryInfo(country){
-    console.log(this.datepipe.transform(this.start_date,'yyyy-MM-dd'));
-    return this.http.get(this.countryurl+country)
+    return this.http.get(this.countryurl+country, { 'headers': this.headers })
       //+"?from="+this.start_date+"T00:00:00Z"+"&to="+this.end_date+"T00:00:00Z");
   }
 }

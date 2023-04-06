@@ -22,7 +22,7 @@
                       <div class="card-block">
                         <div class="row align-items-end">
                           <div class="col-8">
-                            <h4 class="text-white">{{total_cases}}</h4>
+                            <h4 class="text-white">{{total_cases | number}}</h4>
                             <h6 class="text-white m-b-0">Total Cases</h6>
                           </div>
                           <div class="col-4 text-right"><iframe class="chartjs-hidden-iframe" tabindex="-1"
@@ -44,7 +44,7 @@
                       <div class="card-block">
                         <div class="row align-items-end">
                           <div class="col-8">
-                            <h4 class="text-white">{{total_deaths}}</h4>
+                            <h4 class="text-white">{{total_deaths | number}}</h4>
                             <h6 class="text-white m-b-0">Deaths</h6>
                           </div>
                           <div class="col-4 text-right"><iframe class="chartjs-hidden-iframe" tabindex="-1"
@@ -66,7 +66,7 @@
                       <div class="card-block">
                         <div class="row align-items-end">
                           <div class="col-8">
-                            <h4 class="text-white">{{total_recovered}}</h4>
+                            <h4 class="text-white">{{total_recovered | number}}</h4>
                             <h6 class="text-white m-b-0">Recovered</h6>
                           </div>
                           <div class="col-4 text-right"><iframe class="chartjs-hidden-iframe" tabindex="-1"

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RestcountriesService {
 
-  public url = "https://restcountries.eu/rest/v2";
+  public url = "https://restcountries.com/v3.1";
 
   constructor(private _http:HttpClient) { }
 
