@@ -30,7 +30,7 @@ export class DataService {
   }
 
   getCountryInfo(country){
-    return this.http.get(this.countryurl+country, { 'headers': this.headers })
+    return this.http.get<CountriesDetail>(this.countryurl+country, { 'headers': this.headers })
       //+"?from="+this.start_date+"T00:00:00Z"+"&to="+this.end_date+"T00:00:00Z");
   }
 }

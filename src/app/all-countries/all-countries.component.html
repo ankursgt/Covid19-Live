@@ -32,7 +32,7 @@
             <li class="list-group-item" >Total Deaths: <span [ngClass]="{'myclass newd':country.deaths>0}">{{country.deaths | number}}</span></li>
           </ul>
         <div class="card-body">
-          <a [routerLink]="['/acountry', country.country]" class="card-link alink" style="font-size: medium;"
+          <a [routerLink]="['/acountry', country.country]" [queryParams]="{confirmed: country.confirmed, deaths: country.deaths}" class="card-link alink" style="font-size: medium;"
           [class.disabled]="areDetailsAvailable(country.country) ? true: null">More Details</a>
         </div>
     </div>

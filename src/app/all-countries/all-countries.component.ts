@@ -64,7 +64,6 @@ export class AllCountriesComponent implements OnInit{
           this.dataserviceObj.getCovidData().pipe(map(res=>res.data)).subscribe(data=>{
             this.countriesdata=data.covid19Stats;
             this.filteredDetailsArr = this.countriesdata.filter(x => x.province == null).map(country => country.country);
-            console.log(this.filteredDetailsArr);
             const result = this.segregateData(this.countriesdata);
             
             for(const i in result){
@@ -74,7 +73,6 @@ export class AllCountriesComponent implements OnInit{
               cdata.deaths = result[i].deaths;
               this.detailsArr.push(cdata);
             }
-            console.log(this.detailsArr, this.countriesdata);
             for(var i=0;i<Object.keys(this.detailsArr).length;i++){
               for(var j=0;j<Object.keys(this.countries).length;j++){
                   if(this.detailsArr[i].country==this.countries[j].name.common){
@@ -83,7 +81,6 @@ export class AllCountriesComponent implements OnInit{
                 }
               }
             }
-            console.log(this.fcountriesdata);
             this.spinner.hide();
           });
         }

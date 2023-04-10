@@ -17,7 +17,7 @@
               <div class="country">{{country}}</div>
               <div class="page-body">
                 <div class="row">
-                  <div class="col-xl-3 col-md-6">
+                  <div class="col-xl-4 col-md-6">
                     <div class="card bg-c-yellow update-card">
                       <div class="card-block">
                         <div class="row align-items-end">
@@ -33,13 +33,13 @@
                         </div>
                       </div>
                       <div class="card-footer">
-                        <p class="text-white m-b-0"><i class="fa fa-arrow-up text-white f-14 m-r-10"></i>{{cases_slw}}%
-                        </p>
-                        <span class="text-nowrap">Since last week</span>
+                        <h4 class="text-white m-b-0"><i class="fa fa-arrow-up text-white f-14 m-r-10"></i>{{cases_slw}}
+                        </h4>
+                        <span class="text-nowrap">Most Cases</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-md-6">
+                  <div class="col-xl-4 col-md-6">
                     <div class="card bg-c-pink update-card">
                       <div class="card-block">
                         <div class="row align-items-end">
@@ -55,70 +55,39 @@
                         </div>
                       </div>
                       <div class="card-footer">
-                        <p class="text-white m-b-0"><i class="fa fa-arrow-up text-white f-14 m-r-10"></i>{{deaths_slw}}%
-                        </p>
-                        <span class="text-nowrap">Since last week</span>
+                        <h4 class="text-white m-b-0"><i class="fa fa-arrow-up text-white f-14 m-r-10"></i>{{deaths_slw}}
+                        </h4>
+                        <span class="text-nowrap">Most Deaths</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-md-6">
-                    <div class="card bg-c-green update-card">
+                  <div class="col-xl-4 col-md-6">
+                    <div class="card bg-grey update-card">
                       <div class="card-block">
-                        <div class="row align-items-end">
-                          <div class="col-8">
-                            <h4 class="text-white">{{total_recovered | number}}</h4>
-                            <h6 class="text-white m-b-0">Recovered</h6>
+                          <div>
+                            <p class="text-white m-b-0"><i class="fa fa-clock-o text-white f-14 m-r-10"></i>last updated :
+                              {{last_updated}}</p>
                           </div>
-                          <div class="col-4 text-right"><iframe class="chartjs-hidden-iframe" tabindex="-1"
-                              style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
-                            <canvas id="update-chart-3" height="62" width="75"
-                              style="display: block; height: 50px; width: 60px;"></canvas>
-                          </div>
-                        </div>
                       </div>
-                      <div class="card-footer">
-                        <p class="text-white m-b-0"><i
-                            class="fa fa-arrow-up text-white f-14 m-r-10"></i>{{recovered_slw}}%</p>
-                        <span class="text-nowrap">Since last week</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-3 col-md-6">
-                    <div class="card bg-c-lite-green update-card">
-                      <div class="card-block">
-                        <div class="row align-items-end">
-                          <div class="col-8">
-                            <h4 class="text-white">{{recoveryrate}}%</h4>
-                            <h6 class="text-white m-b-0">Recovery Rate</h6>
-                          </div>
-                          <div class="col-4 text-right"><iframe class="chartjs-hidden-iframe" tabindex="-1"
-                              style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
-                            <canvas id="update-chart-4" height="62" width="75"
-                              style="display: block; height: 50px; width: 60px;"></canvas>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card-footer">
-                        <p class="text-white m-b-0"><i class="fa fa-clock-o text-white f-14 m-r-10"></i>last updated :
-                          {{last_updated}}</p>
+                      <div class="card-footer mb-3">
+                        <p class="text-white m-b-0">The data is as per information provided by the API:<br>
+                          https://covid-19-coronavirus-statistics.p.rapidapi.com/</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-xl-8 col-md-12">
+                  <div class="col-12">
                     <div class="card">
                       <div class="card-block">
-                        <h6 class="m-b-15">Confirmed Cases</h6>
-                        <span class="text-muted">Cummulative data of daily confirmed cases</span>
+                        <span class="m-b-15">Cummulative data of confirmed cases in provinces</span>
                         <div class="card bg-default">
                           <div class="card-body">
                             <!-- Chart -->
-                            <div class="chart">
+                            <div *ngIf="confirmedChart" class="chart">
                               <!-- Chart wrapper -->
-                              <canvas baseChart id="chart-total-cases" class="chart-canvas" [datasets]="confirmedData"
-                                [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                                [type]="'bar'"></canvas>
+                              <canvas baseChart chartType="bar" id="chart-total-cases" class="chart-canvas" [datasets]="confirmedChart.datasets"
+                                [labels]="confirmedChart.labels" [options]="confirmedChart.options"></canvas>
                             </div>
                           </div>
                         </div>
@@ -127,52 +96,15 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-xl-8 col-md-12">
+                  <div class="col-12">
                     <div class="card">
                       <div class="card-block">
-                        <h6 class="m-b-15">Daily Cases</h6>
+                        <h6 class="m-b-15">Cummulative data of deaths in provinces</h6>
                         <div class="card bg-default">
                           <div class="card-body">
-                            <div class="chart">
-                              <canvas baseChart id="chart-daily-cases" class="chart-canvas" [datasets]="dailyCases"
-                                [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                                [type]="'bar'"></canvas>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xl-6 col-md-12">
-                    <div class="card">
-                      <div class="card-block">
-                        <h6 class="m-b-15">Daily Deaths</h6>
-                        <div class="card bg-default">
-                          <div class="card-body">
-                            <div class="chart">
-                              <canvas baseChart id="chart-daily-deaths" class="chart-canvas" [datasets]="dailyDeaths"
-                                [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                                [type]="'bar'"></canvas>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-6 col-md-12">
-                    <div class="card">
-                      <div class="card-block">
-                        <h6 class="m-b-15">Daily Recovered</h6>
-                        <div class="card bg-default">
-                          <div class="card-body">
-                            <!-- Chart -->
-                            <div class="chart">
-                              <!-- Chart wrapper -->
-                              <canvas baseChart id="chart-daily-recovered" class="chart-canvas"
-                                [datasets]="dailyRecovered" [labels]="barChartLabels" [options]="barChartOptions"
-                                [legend]="barChartLegend" [type]="'bar'"></canvas>
+                            <div class="chart" *ngIf="deathChart">
+                              <canvas baseChart chartType="bar" id="chart-daily-cases" class="chart-canvas" [datasets]="deathChart.datasets"
+                                [labels]="deathChart.labels" [options]="deathChart.options"></canvas>
                             </div>
                           </div>
                         </div>
