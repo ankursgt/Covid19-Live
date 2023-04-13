@@ -85,7 +85,3 @@
     background-repeat:no-repeat;
     background-size:cover;
   }
-
-  .bg-grey {
-    background: linear-gradient(to right, grey, lightgray);
-  }

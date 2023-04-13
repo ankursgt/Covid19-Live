@@ -14,17 +14,14 @@ export class RegionsComponent implements OnInit {
   constructor(public dataserviceObj: DataService, private _route: ActivatedRoute, private spinner1: NgxSpinnerService) { }
     public global_cases;
     public global_deaths;
-    public global_recovered;
-    public global_cases_today;
-    public global_deaths_today;
-    public global_recovered_today;
+    public last_updated;
 
   ngOnInit() {
     this.spinner1.show();
     this.dataserviceObj.getGlobalData().pipe(map(res => res.data)).subscribe(data => {
-      console.log(data);
-      this.global_cases = data.confirmed.toLocaleString('en');
-      this.global_deaths = data.deaths.toLocaleString('en');
+      this.global_cases = data.confirmed;
+      this.global_deaths = data.deaths;
+      this.last_updated = new Date(data.lastChecked);
       this.spinner1.hide();
     });
     

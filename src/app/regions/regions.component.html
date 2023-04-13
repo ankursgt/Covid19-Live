@@ -30,11 +30,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="card-footer">
-                      <h3 class="text-white m-b-0">+{{global_cases_today | number}}
-                      </h3>
-                      <span class="text-nowrap">cases today</span>
-                    </div>
                   </div>
                 </div>
                 <div class="col-xl-4 col-md-6">
@@ -46,28 +41,6 @@
                           <h6 class="text-white m-b-0">Deaths</h6>
                         </div>
                       </div>
-                    </div>
-                    <div class="card-footer">
-                      <h3 class="text-white m-b-0">+{{global_deaths_today | number}}
-                      </h3>
-                      <span>cases today</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-4 col-md-6">
-                  <div class="card bg-c-green update-card">
-                    <div class="card-block">
-                      <div class="row align-items-end">
-                        <div class="col-12">
-                          <h4 class="text-white">{{global_recovered | number}}</h4>
-                          <h6 class="text-white m-b-0">Recovered</h6>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-footer">
-                      <h3 class="text-white m-b-0">+{{global_recovered_today | number}}
-                      </h3>
-                      <span>cases today</span>
                     </div>
                   </div>
                 </div>
@@ -94,6 +67,20 @@
                   <div class="btn btn-region" [routerLink]="['/countries/oceania']">Oceania</div>
                 </div>
               </div>
+              <div class="row text-center">
+              <div class="col-xl-4 col-md-6 text-center">
+                <div class="card bg-grey update-card">
+                  <div class="card-block">
+                    <div class="row align-items-end">
+                      <div class="col-12">
+                        <h4 class="text-white">Last Reported</h4>
+                        <h6 class="text-white m-b-0">{{last_updated}}</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             </div>
           </div>
         </div>
