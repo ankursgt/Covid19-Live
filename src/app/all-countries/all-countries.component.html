@@ -33,7 +33,7 @@
           </ul>
         <div class="card-body">
           <a [routerLink]="['/acountry', country.country]" [queryParams]="{confirmed: country.confirmed, deaths: country.deaths}" class="card-link alink" style="font-size: medium;"
-          [class.disabled]="areDetailsAvailable(country.country) ? true: null">More Details</a>
+          >More Details</a>
         </div>
     </div>
 </div>

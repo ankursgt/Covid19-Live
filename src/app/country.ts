@@ -12,11 +12,10 @@ export class GlobalDetail{
 }
 
 export class CountriesDetail{
-    data: {
-        lastChecked: Date;
-        covid19Stats: countriesdata;
-    }
-    
+    country: string;
+    region: string;
+    cases?: number;
+    deaths?: number; 
     
 }
 

@@ -17,13 +17,13 @@ export class RegionsComponent implements OnInit {
     public last_updated;
 
   ngOnInit() {
-    this.spinner1.show();
-    this.dataserviceObj.getGlobalData().pipe(map(res => res.data)).subscribe(data => {
-      this.global_cases = data.confirmed;
-      this.global_deaths = data.deaths;
-      this.last_updated = new Date(data.lastChecked);
-      this.spinner1.hide();
-    });
+    // this.spinner1.show();
+    // this.dataserviceObj.getGlobalData().pipe(map(res => res.data)).subscribe(data => {
+    //   this.global_cases = data.confirmed;
+    //   this.global_deaths = data.deaths;
+    //   this.last_updated = new Date(data.lastChecked);
+    //   this.spinner1.hide();
+    // });
     
   }
 

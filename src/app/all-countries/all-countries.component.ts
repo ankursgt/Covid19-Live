@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { CountriesDetail } from '../country';
 import * as $ from 'jquery';
 import { NgxSpinnerService } from "ngx-spinner";
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -43,13 +44,13 @@ export class AllCountriesComponent implements OnInit{
       return data.reduce((c, data) => {
           if (!c[data.country]) {
             c[data.country] = {
-              confirmed: data.confirmed,
-              deaths: data.deaths,
+              confirmed: data.cases.total,
+              deaths: data.deaths.total
               
             };
           } else {
-            c[data.country].confirmed += data.confirmed;
-            c[data.country].deaths += data.deaths;
+            c[data.country].confirmed += data.cases.total;
+            c[data.country].deaths += data.deaths.total;
           }
           return c;
         }, {});
@@ -60,24 +61,35 @@ export class AllCountriesComponent implements OnInit{
     this.restserviceObj.getCountries(region)
       .subscribe(
         data => {
-          this.countries=data;
-          this.dataserviceObj.getCovidData().pipe(map(res=>res.data)).subscribe(data=>{
-            this.countriesdata=data.covid19Stats;
-            this.filteredDetailsArr = this.countriesdata.filter(x => x.province == null).map(country => country.country);
+          this.countries = data;
+          // combine covid data and deaths into a single array using forkJoin
+          forkJoin([
+            this.dataserviceObj.getCovidData(),
+            this.dataserviceObj.getDeaths()
+          ]).subscribe(([cases, deaths]) => {
+            this.countriesdata = cases.map(item => {
+              const match = deaths.find(d => d.country === item.country)
+              return {
+                country: item.country,
+              region: item.region,
+              cases: item.cases,
+              deaths: match.deaths
+            }})
+
             const result = this.segregateData(this.countriesdata);
-            
-            for(const i in result){
-              let cdata = {country: '', confirmed: 0, deaths: 0, flag: ''}
+
+            for (const i in result) {
+              let cdata = { country: '', confirmed: 0, deaths: 0, flag: '' };
               cdata.country = i;
               cdata.confirmed = result[i].confirmed;
               cdata.deaths = result[i].deaths;
               this.detailsArr.push(cdata);
             }
-            for(var i=0;i<Object.keys(this.detailsArr).length;i++){
-              for(var j=0;j<Object.keys(this.countries).length;j++){
-                  if(this.detailsArr[i].country==this.countries[j].name.common){
-                    this.detailsArr[i].flag=this.countries[j].flags.svg;
-                this.fcountriesdata.push(this.detailsArr[i]);
+            for (var i = 0; i < Object.keys(this.detailsArr).length; i++) {
+              for (var j = 0; j < Object.keys(this.countries).length; j++) {
+                if (this.detailsArr[i].country == this.countries[j].name.common) {
+                  this.detailsArr[i].flag = this.countries[j].flags.svg;
+                  this.fcountriesdata.push(this.detailsArr[i]);
                 }
               }
             }
@@ -85,10 +97,6 @@ export class AllCountriesComponent implements OnInit{
           });
         }
       )
-  }
-
-  areDetailsAvailable(country){
-    return this.filteredDetailsArr.includes(country);
   }
 
   public goBack(): any{

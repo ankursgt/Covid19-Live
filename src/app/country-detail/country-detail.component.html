@@ -33,7 +33,7 @@
                         </div>
                       </div>
                       <div class="card-footer">
-                        <h4 class="text-white m-b-0"><i class="fa fa-arrow-up text-white f-14 m-r-10"></i>{{cases_slw}}
+                        <h4 class="text-white m-b-0"><i class="fa fa-arrow-up text-white f-14 m-r-10"></i>{{cases_slw | number}}
                         </h4>
                         <span class="text-nowrap">Most Cases</span>
                       </div>
@@ -55,9 +55,9 @@
                         </div>
                       </div>
                       <div class="card-footer">
-                        <h4 class="text-white m-b-0"><i class="fa fa-arrow-up text-white f-14 m-r-10"></i>{{deaths_slw}}
+                        <h4 class="text-white"><i class="fa fa-clock-o text-white f-14 m-r-10"></i>{{cases_slw_date | date}}
                         </h4>
-                        <span class="text-nowrap">Most Deaths</span>
+                        <h6 class="text-white m-b-0">Most Cases on</h6>
                       </div>
                     </div>
                   </div>
@@ -71,7 +71,7 @@
                       </div>
                       <div class="card-footer mb-3">
                         <p class="text-white m-b-0">The data is as per information provided by the API:<br>
-                          https://covid-19-coronavirus-statistics.p.rapidapi.com/</p>
+                          {{url}}</p>
                       </div>
                     </div>
                   </div>
@@ -80,7 +80,7 @@
                   <div class="col-12">
                     <div class="card">
                       <div class="card-block">
-                        <span class="m-b-15">Cummulative data of confirmed cases in provinces</span>
+                        <span class="m-b-15">Number of monthly confirmed cases in the country</span>
                         <div class="card bg-default">
                           <div class="card-body">
                             <!-- Chart -->
@@ -99,7 +99,7 @@
                   <div class="col-12">
                     <div class="card">
                       <div class="card-block">
-                        <h6 class="m-b-15">Cummulative data of deaths in provinces</h6>
+                        <h6 class="m-b-15">Number of monthly deaths in the country</h6>
                         <div class="card bg-default">
                           <div class="card-body">
                             <div class="chart" *ngIf="deathChart">

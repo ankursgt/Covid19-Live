@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { NgxSpinnerService } from "ngx-spinner";
+import { environment } from 'src/environments/environment';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-country-detail',
@@ -27,51 +29,74 @@ export class CountryDetailComponent implements OnInit {
   total_recovered;
   cdata_slw;
   cases_slw;
-  deaths_slw;
+  cases_slw_date;
   recovered_slw;
   daily_cases = [];
   daily_deaths = [];
   daily_recovered = [];
   recoveryrate;
-  last_updated;
+  last_updated = new Date(environment.lastUpdatedDate);
   confirmedChart;
   deathChart;
+  url;
 
 
   constructor(private datasvc: DataService, private _route: ActivatedRoute, public loc: Location, private dtpipe: DatePipe, private spinner: NgxSpinnerService) { }
   ngOnInit() {
     this.spinner.show();
+    this.url = this.datasvc.globalurl;
     this._route.queryParams
       .subscribe(params => {
         this.total_cases = params.confirmed;
         this.total_deaths = params.deaths
       }
-    );
+      );
     this._route.params.subscribe(
       data => {
         this.country = data.country;
-        this.datasvc.getCountryInfo(this.country).subscribe(
-          res => {
-            this.spinner.hide();
-            this.countryInfo = res.data;
-            this.last_updated = new Date(this.countryInfo.lastChecked);
-            const maxCases = Math.max(...this.countryInfo.covid19Stats.map(x => x.confirmed));
-            const maxDeaths = Math.max(...this.countryInfo.covid19Stats.map(x => x.deaths));
+        forkJoin([
+          this.datasvc.getCountryInfo(this.country),
+          this.datasvc.getDeaths(this.country)
+        ]).subscribe(([cases, deaths]) => {
+          this.countryInfo = {
+            country: cases[0].country,
+            region: cases[0].region,
+            cases: cases[0].cases,
+            deaths: deaths[0].deaths
+          }
+          this.spinner.hide();
+          this.cases_slw_date = Object.keys(this.countryInfo.cases).reduce((a, b) =>
+            this.countryInfo.cases[a].new > this.countryInfo.cases[b].new ? a : b
+          );
+          this.cases_slw = this.countryInfo.cases[this.cases_slw_date].new;
+          const casesCummulativeData = this.cummulativeDataByMonth(this.countryInfo.cases);
+          const deathsCummulativeData = this.cummulativeDataByMonth(this.countryInfo.deaths);
+          this.xaxis = Object.keys(casesCummulativeData);
+          this.daily_deaths = Object.values(deathsCummulativeData);
+          this.confirmed_cases = Object.values(casesCummulativeData);
 
-            this.cases_slw = this.countryInfo.covid19Stats.find(element => element.confirmed === maxCases).province;
-            this.deaths_slw = this.countryInfo.covid19Stats.find(element => element.deaths === maxDeaths).province;
-            for (var i = 0; i < this.countryInfo.covid19Stats.length; i++) {
-              this.xaxis.push(this.countryInfo.covid19Stats[i].province);
-              this.confirmed_cases.push(this.countryInfo.covid19Stats[i].confirmed);
-              this.daily_deaths.push(this.countryInfo.covid19Stats[i].deaths);
-            }
-            this.loadChart();
-          });
+          this.loadChart();
+        });
       })
   }
 
   public goBack(): any {
     this.loc.back();
+  }
+
+  cummulativeDataByMonth(type) {
+    const months = Object.keys(type);
+    const typeByMonth = months.reduce((acc, date) => {
+      const monthKey = new Date(date).toLocaleString('default', { month: 'short' });
+      const yearKey = new Date(date).getFullYear();
+
+      if (!acc[monthKey] || date > acc[monthKey]) {
+        acc[`${monthKey}-${yearKey}`] = (acc[`${monthKey}-${yearKey}`] || 0) + type[date].new;
+      }
+
+      return acc;
+    }, {});
+    return typeByMonth;
   }
 
   loadChart(){
